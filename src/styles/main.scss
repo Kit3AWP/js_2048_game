@@ -22,14 +22,9 @@ body {
 }
 
 body::before {
-  content: "";
+  content: '';
   position: absolute;
-
-  top: 20px;
-  bottom: 40px;
-  left: 150px;
-  right: 150px;
-
+  inset: 20px 150px 40px;
   background: #e8dbca;
   border-radius: 100px;
   z-index: -1;
@@ -45,7 +40,9 @@ body::before {
   text-align: center;
   vertical-align: center;
   user-select: none;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
 
   &--2 {
     background: #ffcc2e;
@@ -123,9 +120,15 @@ body::before {
 }
 
 @keyframes merge {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .game-field {

@@ -1,6 +1,6 @@
 'use strict';
 
-class Game {
+export default class Game {
   constructor(initialState) {
     this.board = initialState
       ? initialState.map((row) => [...row])
@@ -192,6 +192,3 @@ class Game {
     this.start();
   }
 }
-
-export default Game;
-module.exports = Game;
