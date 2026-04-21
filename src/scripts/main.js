@@ -104,12 +104,12 @@ document.addEventListener('keydown', (e) => {
   let moved = false;
 
   if (e.key === 'ArrowLeft') {
-    handleMove(() => game.moveRight());
+    handleMove(() => game.moveLeft());
     moved = true;
   }
 
   if (e.key === 'ArrowRight') {
-    handleMove(() => game.moveLeft());
+    handleMove(() => game.moveRight());
     moved = true;
   }
 
@@ -158,9 +158,9 @@ document.addEventListener('touchend', (e) => {
 
   if (absX > absY) {
     if (diffX > 0) {
-      handleMove(() => game.moveLeft());
-    } else {
       handleMove(() => game.moveRight());
+    } else {
+      handleMove(() => game.moveLeft());
     }
   } else {
     if (diffY > 0) {
