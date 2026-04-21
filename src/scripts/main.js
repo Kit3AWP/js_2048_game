@@ -158,9 +158,9 @@ document.addEventListener('touchend', (e) => {
 
   if (absX > absY) {
     if (diffX > 0) {
-      handleMove(() => game.moveLeft());
-    } else {
       handleMove(() => game.moveRight());
+    } else {
+      handleMove(() => game.moveleft());
     }
   } else {
     if (diffY > 0) {
