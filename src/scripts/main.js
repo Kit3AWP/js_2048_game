@@ -8,7 +8,7 @@ const cells = document.querySelectorAll('.field-cell');
 const score = document.querySelector('.game-score');
 const button = document.querySelector('.start');
 
-function render() {
+function render(prevState = null) {
   const state = game.getState();
 
   score.textContent = game.getScore();
@@ -18,13 +18,35 @@ function render() {
     const col = index % 4;
 
     const value = state[row][col];
+    const prevValue = prevState?.[row]?.[col] ?? 0;
 
     cell.textContent = value === 0 ? '' : value;
     cell.className = 'field-cell';
     cell.classList.add(`field-cell--${value}`);
+
+    if (prevValue === 0 && value !== 0) {
+      cell.classList.add('new');
+    }
+
+    if (value !== 0 && value === prevValue * 2) {
+      cell.classList.add('merge');
+    }
+
+    setTimeout(() => {
+      cell.classList.remove('new');
+      cell.classList.remove('merge');
+    }, 200);
   });
 
   showMessage();
+}
+
+let previousState = game.getState();
+
+function handleMove(moveFn) {
+  previousState = game.getState();
+  moveFn();
+  render(previousState);
 }
 
 function showMessage() {
@@ -82,30 +104,28 @@ document.addEventListener('keydown', (e) => {
   let moved = false;
 
   if (e.key === 'ArrowLeft') {
-    game.moveLeft();
+    handleMove(() => game.moveLeft());
     moved = true;
   }
 
   if (e.key === 'ArrowRight') {
-    game.moveRight();
+    handleMove(() => game.moveRight());
     moved = true;
   }
 
   if (e.key === 'ArrowUp') {
-    game.moveUp();
+    handleMove(() => game.moveUp());
     moved = true;
   }
 
   if (e.key === 'ArrowDown') {
-    game.moveDown();
+    handleMove(() => game.moveDown());
     moved = true;
   }
 
   if (!moved) {
     return;
   }
-
-  render();
 
   const gameStatus = game.getStatus();
 
@@ -138,19 +158,17 @@ document.addEventListener('touchend', (e) => {
 
   if (absX > absY) {
     if (diffX > 0) {
-      game.moveRight();
+      handleMove(() => game.moveLeft());
     } else {
-      game.moveLeft();
+      handleMove(() => game.moveRight());
     }
   } else {
     if (diffY > 0) {
-      game.moveDown();
+      handleMove(() => game.moveDown());
     } else {
-      game.moveUp();
+      handleMove(() => game.moveUp());
     }
   }
-
-  render();
 
   const gameStatus = game.getStatus();
 

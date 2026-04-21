@@ -7,12 +7,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #3b1f14;
   font-family: sans-serif;
   font-size: 24px;
   font-weight: 900;
-  height: 100%;
   overflow: hidden;
   touch-action: none;
   overscroll-behavior: none;
@@ -20,15 +19,17 @@ body {
 
 @media (max-width: 500px) {
   body::before {
-    inset: 10px;
-  }
-  .container {
-    width: 90vw;
+    display: none;
   }
 
-  .field-cell {
-    width: 18vw;
-    height: 18vw;
+  body {
+    min-height: 100vh;
+    height: 100%;
+    background: #b39f86;
+  }
+
+  .container {
+    width: 92vw;
   }
 }
 
@@ -36,24 +37,26 @@ body::before {
   content: '';
   position: absolute;
   inset: 3vh 12vw 5vh;
-  background: #e8dbca;
+  background: #d6cbbc;
   border-radius: 100px;
   z-index: -1;
 }
 
 .field-cell {
   background: #734431;
-  width: 75px;
-  height: 75px;
+  width: 100%;
   border-radius: 5px;
   color: #3b1f14;
   box-sizing: border-box;
   text-align: center;
-  vertical-align: center;
   user-select: none;
-  transition:
-    transform 0.15s ease,
-    opacity 0.15s ease;
+  aspect-ratio: 1 / 1;
+  line-height: 1;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
 
   &--2 {
     background: #ffcc2e;
@@ -112,22 +115,23 @@ body::before {
 }
 
 .field-cell.new {
-  transform: scale(0);
-  opacity: 0;
-  animation: pop 0.2s forwards;
+  animation: appear 0.25s ease-out;
 }
 
-@keyframes pop {
+@keyframes appear {
   0% {
-    transform: scale(0);
+    transform: scale(0.6);
+    opacity: 0;
   }
+
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
   100% {
     transform: scale(1);
   }
-}
-
-.field-cell.merge {
-  animation: merge 0.2s ease;
 }
 
 @keyframes merge {
@@ -135,7 +139,7 @@ body::before {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.15);
   }
   100% {
     transform: scale(1);
@@ -145,9 +149,14 @@ body::before {
 .game-field {
   background: #3b1f14;
   border-spacing: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: min(90vw, 320px);
+  height: min(90vw, 320px);
   border-radius: 5px;
-  width: 100%;
-  table-layout: fixed;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .game-header {
@@ -178,7 +187,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #d4c3b2;
+  background: #c3b4a5;
   width: 75px;
   height: 75px;
   border-radius: 5px;
@@ -193,7 +202,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #d4c3b2;
+  background: #c3b4a5;
   width: 75px;
   height: 75px;
   border-radius: 5px;
@@ -258,7 +267,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 350px;
+  width: min(90vw, 340px);
 }
 
 .message-win {
