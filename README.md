@@ -1,3 +1,5 @@
+[DEMO LINK](https://kit3awp.github.io/js_2048_game/)
+
 # 2048 game
 
 Hey! Are you ready for a real hard check of your JavaScript skills, ninja?
